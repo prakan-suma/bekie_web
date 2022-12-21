@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+a{
+  color: rgb(44, 44, 44);
+}
+nav{
+  align-items: center;
+}
+
+.gap{
+  gap: 1rem;
+
+}
+
+.cd-it {
+  width: 150px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.cd-it img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+} 
+.cd {
+  display: grid;
+  grid-template-columns: auto auto auto auto ;
+  gap: 1rem;
+}
