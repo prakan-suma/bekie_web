@@ -1,20 +1,31 @@
-<?php require 'header.php'; ?>
+<?php include 'header.php' ?>
 
-<!-- ===============Body================= -->
-<main class="p-5">
-    <div class="login-ct m-auto col-5">
-        <h3 class="text-center mb-4">เข้าสู่ระบบ</h3>
+<!-- body code goes here -->
+<session>
 
-        <!-- form  -->
-        <form action="" class="mb-2">
-            <input type="text" class="form-control mb-3" placeholder="Email">
-            <input type="text" class="form-control mb-3" placeholder="Password">
-            <button type="submit" class="btn btn-success btn-block">เข้าสู่ระบบ</button>
-        </form>
+	<div>
+		<div class="p-5">
 
-        <a href="" class="">ยังไม่ได้ลงทะเบียน?</a>
+			<h4 class="text-center mb-4 font-weight-bold">Login</h4>
 
-    </div>
-</main>
+			<?= alertShow() ?>
+			
+			<form action="auth.php" method="post">
+				<div>
+					<input class="form-control mb-2" name="username" type="text" required placeholder="ชื่อผู้ใช้งาน">
+				</div>
+				
+				<div>
+					<input class="form-control mb-4" type="password" required  name="password" placeholder="รหัสผ่าน">
+				</div>
+				
+				<button class="btn btn-outline-primary btn-block" type="submit">บันทึก</button>
+				
+			</form>
+		</div>
+	</div>
+</session>
 
-<?php require 'footer.php'; ?>
+<?php
+include 'footer.php';
+?>

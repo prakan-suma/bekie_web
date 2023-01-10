@@ -1,6 +1,14 @@
-<script src="https://code.jquery.com/jquery-3.6.2.js"></script></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<scrsipt src="js/jquery-3.3.1.min.js"></scrsipt>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap-4.3.1.js"></script>
+<script src="js/popper.min.js"></script>
+
 </body>
+
+<?php
+unset($_SESSION['alert-message']);
+unset($_SESSION['alert-class']);
+?>
+
 </html>

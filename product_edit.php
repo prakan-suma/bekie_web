@@ -3,39 +3,46 @@
 <!-- body code goes here -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<div class="ct">
+<div class="container">
 	<h4>ร้าน <?= user('shop_name') ?></h4>
 	<h2> เพิ่มสินค้าใหม่ </h2>
-	
+
+	<!-- show alert  -->
 	<?= alert() ?>
-	
-	<form action="product_save.php" method="post" enctype="multipart/form-data">
+
+	<?php
+	$product = get("select * from product where id='{$_GET['id']}' ");
+	$p = $product[0];
+	?>
+
+	<form action="product_update.php" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="id" value="<?= $p['id'] ?>">
 		<div class="form-group row">
 			<label for="name" class="col-sm-2"> ชื่อสินค้า </label>
-			<input type="text" name="name" class="form-control col-sm-4" required >
+			<input type="text" name="name" class="form-control col-sm-4" value="<?= $p['name'] ?>">
 		</div>
 		<div class="form-group row">
 			<label for="price" class="col-sm-2"> ราคา </label>
-			<input type="text" name="price" class="form-control col-sm-4" required>
+			<input type="text" name="price" class="form-control col-sm-4" value="<?= $p['price'] ?>">
 		</div>
 		<div class="form-group row">
 			<label for="picture" class="col-sm-2"> รูปภาพตัวอย่าง </label>
-			<input type="file" name="picture" class="form-control-file col-sm-4" required>
+			<input type="file" name="picture" class="form-control-file col-sm-4">
 		</div>
 		<div class="form-group row">
 			<label for="detail" class="col-sm-2"> รายละเอียดสินค้า </label>
-			<textarea name="detail" class="form-control col-sm-6"></textarea>
+			<textarea name="detail" class="form-control col-sm-6"><?= $p['detail'] ?></textarea>
 		</div>
 		<div class="form-group row">
 			<label for="size" class="col-sm-2"> ขนาด (เซนติเมตร) </label>
 
-			<input type="text" name="box_width" class="form-control col-sm-2 m-1" placeholder="กว้าง">
-			<input type="text" name="box_height" class="form-control col-sm-2 m-1" placeholder="สูง">
-			<input type="text" name="box_long" class="form-control col-sm-2 m-1" placeholder="ยาว">
+			<input type="text" name="box_width" class="form-control col-sm-2 m-1" placeholder="กว้าง" value="<?= $p['box_width'] ?>">
+			<input type="text" name="box_height" class="form-control col-sm-2 m-1" placeholder="สูง" value="<?= $p['box_height'] ?>">
+			<input type="text" name="box_long" class="form-control col-sm-2 m-1" placeholder="ยาว" value="<?= $p['box_long'] ?>">
 		</div>
 		<div class="form-group row">
 			<label for="weight" class="col-sm-2"> น้ำหนัก (กิโลกรัม) </label>
-			<input type="text" name="box_weight" class="form-control col-sm-4" required>
+			<input type="text" name="box_weight" class="form-control col-sm-4" value="<?= $p['box_weight'] ?>">
 		</div>
 		<div class="form-group row">
 			<button type="submit" class="btn btn-primary offset-sm-2"> บันทึก </button>

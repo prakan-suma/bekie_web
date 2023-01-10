@@ -2,7 +2,7 @@
 session_start();
 $user_type = $_SESSION['user_type'] ?? "" ;
 
-if( empty($_SESSION['login']) || $user_type == "seller" ){
+if( empty($_SESSION['login']) || $user_type == "customer" ){
 	header('location:login.php');
 }
 
@@ -23,8 +23,9 @@ $purchase = get($sql)[0];
 $sql = "select * 
         from purchase_list l
 		inner join product p on p.id = l.product_id
-	    where purchase_id = ".$id;
+	    where p.seller_id = " .$_SESSION['user']['id']. " and purchase_id = ".$id;
 $cart = get($sql);
+
 
 //echo mysqli_error($conn);
 ?>

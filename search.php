@@ -1,52 +1,86 @@
-<?php require 'header.php'; ?>
+<?php include 'header.php' ?>
 
-<!-- ===============Body================= -->
-<main class="p-5">
+<!-- alert  -->
+<?= alert() ?>
 
-    <section class="search">
-        <form action="search.php" method="post" class="m-auto col-5">
-            <div class="input-group">
-                <input type="text" name="keyword" class="form-control" placeholder="ค้นหา....">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary"> ค้นหา </button>
-                </div>
-            </div>
-        </form>
-    </section>
+<section class="ct">
+	<h4>รายการสินค้าที่ตรงกับคำค้นหา </h4>
 
-    <div>
-        <h4>สินค้าขายดี</h4>
-        <div class="cd">
-            <div class="cd-it">
-                <img src="img/bamboo-shoot-soup.jpg" alt="">
-                <p>แกงหน่อไม้</p>
-                <div class="d-flex justify-content-between">
-                    <p>อร่อยมาก</p>
-                    <p>50 บาท</p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="product_list">
+		<?php
+		$perpage = 20;
+		$page = (empty($_GET['page'])) ? 1 : $_GET['page'];
+		$start = $perpage * $page - $perpage; // (1*15)-20 = 0 , (2*15)-20 = 15 ;
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination dsd">
-            <li class="page-item">
-                <a class="btn-ac-link" href="" aria-label="Previous">
-                    <span aria-hidden="true" class="btn btn-outline-primary">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
+		$keyword = $_POST['keyword'];
+		$sql = "select * from product where name LIKE '%$keyword%' ";
 
-            <li class="page-item ml-1 mr-1"> <a class="btn-ac-link" href=""></a> </li>
+		$all = get($sql);
 
-            <li class="page-item">
-                <a class="btn-ac-link" href="" aria-label="Next">
-                    <span aria-hidden="true" class="btn btn-outline-primary">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</main>
+		$pages = ceil(count($all) / $perpage);
 
-<?php require 'footer.php'; ?>
+		$sql .= " limit $start,$perpage ";
+		$products = get($sql);
+		foreach ($products as $p) {
+		?>
+			<div class="">
+				<div class="">
+					<div class="text-center pd-img">
+						<img src="upload_picture/<?= $p['picture'] ?>" class="img-fluid">
+					</div>
+					<div class="pt-1 "> <?= $p['name'] ?> </div>
+
+					<div class="pd-info-bt pt-1 pb-2 pr-4">
+
+						<div class="tx-g">ราคา : <?= $p['price'] ?> บาท </div>
+						<div class="">
+							<?php
+							if ($user_type != 'seller') {
+							?>
+								<a class="li-inf" href="cart_add.php?id=<?= $p['id'] ?>"> สั่งซื้อ</a>
+							<?php
+							}
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php
+		}
+		?>
+	</div>
+</section>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<nav aria-label="Page navigation example" class="ct">
+	<!-- Add class .pagination-lg for larger blocks or .pagination-sm for smaller blocks-->
+	<ul class="pagination ">
+
+		<li class="page-item">
+			<a class="btn-ac-link" href="index.php?page=1" aria-label="Previous">
+				<!-- <span aria-hidden="true">&laquo;</span> -->
+				<ion-icon name="chevron-back-outline"></ion-icon>
+				<span class="sr-only">Previous</span>
+			</a>
+		</li>
+		<?php
+		for ($i = 1; $i <= $pages; $i++) {
+		?>
+			<li class="page-item"> <a class="btn-ac-link" href="index.php?page=<?= $i ?>"> <?= $i ?> </a> </li>
+		<?php
+		}
+		?>
+		<li class="page-item">
+			<a class="btn-ac-link" href="index.php?page=<?= $lastpage ?>" aria-label="Next">
+				<!-- <span aria-hidden="true">&raquo;</span> -->
+				<ion-icon name="chevron-forward-outline"></ion-icon>
+				<span class="sr-only">Next</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<?php
+include 'footer.php';
+?>
